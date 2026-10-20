@@ -1,0 +1,12 @@
+{
+  "event_id": "hr-evt-000123",
+  "event_type": "employee.onboarding",
+  "effective_date": "2026-11-02",
+  "employee": {
+    "employee_number": "E-100482",
+    "department_code": "FIN-OPS",
+    "location_code": "LOC-017",
+    "manager_employee_number": "E-100007"
+  },
+  "notes": "Standard laptop bundle"
+}

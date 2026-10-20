@@ -1,0 +1,13 @@
+{
+  "event_id": "evt-20261019-0001",
+  "source": "synthetic-monitor",
+  "host": "srvlx014.example.internal",
+  "check": "disk_usage_root",
+  "severity": "major",
+  "status": "firing",
+  "summary": "Root filesystem above 92%",
+  "description": "/ is at 92.4% (threshold 90%).",
+  "occurred_at": "2026-10-19T14:05:00Z",
+  "assignment_group": "grp-linux-ops",
+  "tags": { "env": "prod", "team": "platform" }
+}

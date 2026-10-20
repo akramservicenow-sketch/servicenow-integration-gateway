@@ -1,0 +1,10 @@
+{
+  "event_id": "evt-20261019-0002",
+  "source": "synthetic-monitor",
+  "host": "srvlx014.example.internal",
+  "check": "disk_usage_root",
+  "severity": "info",
+  "status": "resolved",
+  "summary": "Root filesystem back below threshold",
+  "occurred_at": "2026-10-19T14:40:00Z"
+}
