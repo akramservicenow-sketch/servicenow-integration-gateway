@@ -1,0 +1,25 @@
+{
+  "$id": "https://github.com/akramservicenow-sketch/servicenow-integration-gateway/schemas/hr-event.json",
+  "title": "HR lifecycle event webhook",
+  "description": "Lifecycle event from an HR system of record. The employee is referenced by an opaque id; personal attributes are rejected.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "event_type", "effective_date", "employee"],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1, "maxLength": 100, "pattern": "^[A-Za-z0-9._:-]+$" },
+    "event_type": { "enum": ["employee.onboarding", "employee.offboarding", "employee.job_change"] },
+    "effective_date": { "type": "string", "format": "date" },
+    "employee": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["employee_number"],
+      "properties": {
+        "employee_number": { "type": "string", "pattern": "^[A-Z0-9-]{3,20}$" },
+        "department_code": { "type": "string", "maxLength": 20 },
+        "location_code": { "type": "string", "maxLength": 20 },
+        "manager_employee_number": { "type": "string", "pattern": "^[A-Z0-9-]{3,20}$" }
+      }
+    },
+    "notes": { "type": "string", "maxLength": 1000 }
+  }
+}
