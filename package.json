@@ -1,0 +1,36 @@
+{
+  "name": "servicenow-integration-gateway",
+  "version": "0.1.0",
+  "description": "Webhook-to-ServiceNow integration gateway: HMAC verification, schema validation, idempotency, Import Set/Table API writes, retries, circuit breaker and dead-letter queue.",
+  "license": "MIT",
+  "author": "Shaik Akram",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "start:mock": "node mock-servicenow/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test --test-reporter=spec test/*.test.js",
+    "lint": "eslint .",
+    "sign": "node scripts/sign-payload.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akramservicenow-sketch/servicenow-integration-gateway.git"
+  },
+  "keywords": ["servicenow", "integration", "webhook", "import-set", "express", "circuit-breaker"],
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "eslint": "^9.30.0",
+    "globals": "^16.3.0",
+    "supertest": "^7.1.1"
+  }
+}

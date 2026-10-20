@@ -1,0 +1,43 @@
+# Local stack: gateway + mock ServiceNow. Values here are mock-only placeholders
+# for the local mock; real deployments inject secrets from a secret store.
+services:
+  mock-servicenow:
+    build: .
+    command: ["node", "mock-servicenow/server.js"]
+    environment:
+      MOCK_PORT: "4000"
+      MOCK_CLIENT_ID: mock-client-id
+      MOCK_CLIENT_SECRET: mock-client-secret
+    ports:
+      - "4000:4000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4000/__mock/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  gateway:
+    build: .
+    depends_on:
+      mock-servicenow:
+        condition: service_healthy
+    environment:
+      PORT: "3000"
+      LOG_LEVEL: info
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET:-local-dev-only-webhook-key-change-me-0001}
+      SN_INSTANCE_URL: http://mock-servicenow:4000
+      SN_ALLOW_HTTP: "true"
+      SN_AUTH_MODE: oauth
+      SN_CLIENT_ID: mock-client-id
+      SN_CLIENT_SECRET: mock-client-secret
+      SN_WRITE_MODE: import_set
+      DLQ_MODE: file
+      DLQ_FILE: /app/data/dlq.jsonl
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-dev-admin-token}
+    ports:
+      - "3000:3000"
+    volumes:
+      - gateway-data:/app/data
+
+volumes:
+  gateway-data:
